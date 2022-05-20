@@ -6,6 +6,7 @@ import { environment } from '../environments/environment';
 
 export interface IUser {
   email: string;
+  phone_number:string;
   password: string;
   showPassword: boolean;
   code: string;
@@ -31,6 +32,9 @@ export class CognitoService {
     return Auth.signUp({
       username: user.email,
       password: user.password,
+      attributes:{
+        phone_number: user.phone_number
+      }
     });
   }
 
@@ -70,6 +74,7 @@ export class CognitoService {
   }
 
   public getUser(): Promise<any> {
+console.log(Auth.currentUserInfo(), 'Auth.currentUserInfo()')    
     return Auth.currentUserInfo();
   }
 
